@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.app = void 0;
+const express_1 = __importDefault(require("express"));
+const dotenv_1 = require("dotenv");
+const express_init_1 = require("./core/init/express.init");
+const error_handlers_init_1 = require("./core/init/error.handlers.init");
+const routes_init_1 = require("./core/init/routes.init");
+const logger_1 = require("./core/logging/logger");
+(0, dotenv_1.config)();
+const app = (0, express_1.default)();
+exports.app = app;
+let server;
+(0, express_init_1.initExpress)(app, express_1.default);
+(0, routes_init_1.initRoutes)(app);
+(0, error_handlers_init_1.initErrorHandlers)(app);
+server = app.listen(6000, () => logger_1.logger.info('Generator Server is running'));
